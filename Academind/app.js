@@ -5,7 +5,7 @@ const logger = require("morgan")    // Shows logging in console
 const bodyParser = require("body-parser")
 
 //const mongoose = require("mongoose")
-const jwt = require("jsonwebtoken")
+//const jwt = require("jsonwebtoken")
 
 const authRoutes = require("./api/routes/auth")
 const productRoutes = require("./api/routes/products")
@@ -49,45 +49,45 @@ app.use((req, res, next) => {
 app.use("/", authRoutes)
 
 // JWT authorization for all routes below this middleware
-app.use((req, res, next) => {
-    //console.log("==> Authorization header: " + JSON.stringify(req.header("Authorization")))
-    const token = parseAuthorizationToken(req);
-    if (!token) {
-        return res.status(401).json({
-            message: "Not authorized"
-        })
-    }
+// app.use((req, res, next) => {
+//     //console.log("==> Authorization header: " + JSON.stringify(req.header("Authorization")))
+//     const token = parseAuthorizationToken(req);
+//     if (!token) {
+//         return res.status(401).json({
+//             message: "Not authorized"
+//         })
+//     }
 
-    jwt.verify(token, process.env.JWT_SECRET, function(err, decoded) {
-        if (err) {
-            console.log("jwt NOT verified")
-            return res.status(401).json({
-                message: err.toString()
-            })
-        }
+//     jwt.verify(token, process.env.JWT_SECRET, function(err, decoded) {
+//         if (err) {
+//             console.log("jwt NOT verified")
+//             return res.status(401).json({
+//                 message: err.toString()
+//             })
+//         }
 
-        console.log("jwt verified, decoded: " + JSON.stringify(decoded))
-        next()
-    });
+//         console.log("jwt verified, decoded: " + JSON.stringify(decoded))
+//         next()
+//     });
 
-})
+// })
 
-function parseAuthorizationToken(req) {
-    if (!req || !req.header("Authorization")) {
-        return null;
-    }
+// function parseAuthorizationToken(req) {
+//     if (!req || !req.header("Authorization")) {
+//         return null;
+//     }
 
-    const arr = req.header("Authorization").split(" ")
-    if (arr.length < 2) {
-        return null;
-    } 
+//     const arr = req.header("Authorization").split(" ")
+//     if (arr.length < 2) {
+//         return null;
+//     } 
 
-    if (arr[0].trim().toLowerCase() != "bearer") {
-        return null;
-    }
+//     if (arr[0].trim().toLowerCase() != "bearer") {
+//         return null;
+//     }
 
-    return arr[1].trim();
-}
+//     return arr[1].trim();
+// }
 
 app.use("/products", productRoutes)
 app.use("/orders", orderRoutes)

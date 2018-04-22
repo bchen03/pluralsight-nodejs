@@ -2,13 +2,12 @@
 let nextId = 1
 
 
-function User(username, password, hash, isAdmin, token) {
+function User(username, password, hash, isadmin) {
     this.id = nextId++
     this.username = username
     this.password = password
     this.hash = hash
-    this.token = token || ""
-    isAdmin = isAdmin
+    this.isadmin = isadmin
 }
 
 module.exports = User
