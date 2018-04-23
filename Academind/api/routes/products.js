@@ -4,6 +4,7 @@ const router = express.Router()
 const Authorization = require("../middleware/auth")
 const ProductsController = require("../controllers/products")
 
+
 // products endpoints
 router.get("/", ProductsController.getProducts)
 router.post("/", Authorization.checkAuthIsAdmin, ProductsController.createProduct)

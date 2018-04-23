@@ -1,6 +1,7 @@
 {
     "env": {
-        "JWT_SECRET": "special sauce"
+        "JWT_SECRET": "special sauce",
+        "MONGO_PWD": "nNquIMZwjf2xcQFV"
     }
 }
 

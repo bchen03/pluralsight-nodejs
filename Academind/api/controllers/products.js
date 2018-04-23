@@ -1,3 +1,6 @@
+const mongoose = require("mongoose")
+const Product = require("../models/product")
+
 const getProducts = (req, res, next) => {
     res.status(200).json({
         message: "Handling GET request to /products"
@@ -7,10 +10,20 @@ const getProducts = (req, res, next) => {
 const createProduct = (req, res, next) => {
     console.log("products post body: " + JSON.stringify(req.body))
 
-    const product = {
+    const product = new Product({
+        _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         price: req.body.price
-    }
+    })
+
+    product
+        .save()
+        .then(result => {
+            console.log("product save result: " + JSON.stringify(result))
+        })
+        .catch(err => {
+            console.log("product save error: " + err.toString())
+        })
 
     res.status(201).json({
         message: "Handling POST request to /products",
